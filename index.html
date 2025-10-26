@@ -5,51 +5,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SNIP配置生成器</title>
 <style>
-/* ---------- 原 CSS 不变 ---------- */
+/* ---------- 简化UI ---------- */
 * { box-sizing: border-box; margin:0; padding:0; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;}
-body { background: linear-gradient(135deg,#1a2a6c,#b21f1f,#fdbb2d); color:#333; line-height:1.6; padding:20px; min-height:100vh;}
-.container { max-width:1200px; margin:0 auto; background:white; border-radius:15px; box-shadow:0 10px 30px rgba(0,0,0,0.2); overflow:hidden;}
-header { text-align:center; padding:30px 20px; background: linear-gradient(135deg,#6e8efb,#a777e3); color:white;}
-h1 { font-size:2.5rem; margin-bottom:10px; text-shadow:2px 2px 4px rgba(0,0,0,0.3);}
-.description { font-size:1.1rem; opacity:0.9; max-width:800px; margin:0 auto;}
-.nav-links { display:flex; justify-content:center; gap:20px; padding:15px; background: rgba(255,255,255,0.1); margin-bottom:20px;}
-.nav-links a, .nav-links button { color:white; text-decoration:none; font-weight:600; padding:10px 20px; border-radius:5px; background: rgba(0,0,0,0.2); cursor:pointer; transition: all 0.3s ease;}
-.nav-links a:hover, .nav-links button:hover { background: rgba(0,0,0,0.4); transform:translateY(-2px);}
-@media (max-width:768px) { .nav-links { flex-direction:column; gap:10px; } }
-.main-content { padding:30px; }
-.config-section { margin-bottom:30px; padding:20px; border-radius:10px; background:#f9f9f9; box-shadow:0 4px 10px rgba(0,0,0,0.05);}
-h2 { color:#6e8efb; margin-bottom:20px; padding-bottom:10px; border-bottom:2px solid #eaeaea; display:flex; justify-content:space-between; align-items:center;}
-.section-desc { color:#666; margin-bottom:15px; font-size:0.95rem;}
-textarea { width:100%; min-height:150px; padding:15px; border:1px solid #ddd; border-radius:8px; font-family: monospace; resize: vertical; margin-bottom:15px; transition:border-color 0.3s; font-size:14px;}
-textarea:focus { outline:none; border-color:#6e8efb; box-shadow:0 0 0 2px rgba(110,142,251,0.2);}
-.input-group { margin-bottom:15px; position:relative; }
-.remove-btn { position:absolute; top:10px; right:10px; background:#ff6b6b; color:white; border:none; border-radius:50%; width:25px; height:25px; cursor:pointer; font-size:14px; display:flex; align-items:center; justify-content:center; }
-.input-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;}
-.input-title { font-weight:600; color:#555;}
-.add-btn { padding:8px 15px; background:#4cd964; color:white; border:none; border-radius:5px; cursor:pointer; font-weight:600; transition:all 0.3s ease;}
-.add-btn:hover { background:#3cb054; transform:translateY(-2px);}
-.button-group { display:flex; flex-wrap:wrap; gap:15px; margin:25px 0;}
-button { padding:14px 25px; background: linear-gradient(135deg,#6e8efb,#a777e3); color:white; border:none; border-radius:8px; cursor:pointer; font-weight:600; transition:all 0.3s ease; flex:1; min-width:150px; font-size:16px;}
-button:hover { transform:translateY(-3px); box-shadow:0 5px 15px rgba(110,142,251,0.4);}
-.copy-btn { background: linear-gradient(135deg,#4cd964,#2ecc71);}
-.copy-buttons { display:flex; flex-wrap:wrap; gap:10px; margin:20px 0;}
-.segment-btn { padding:10px 15px; background: linear-gradient(135deg,#3498db,#2980b9); color:white; border:none; border-radius:6px; cursor:pointer; font-weight:600; transition:all 0.3s ease; flex:1; min-width:120px;}
-.segment-btn:hover { background: linear-gradient(135deg,#2980b9,#1c6ea4); transform:translateY(-2px);}
-.output { background-color:#2c3e50; color:#ecf0f1; padding:20px; border-radius:8px; margin-top:20px; overflow-x:auto; font-family:'Courier New', monospace; line-height:1.5; max-height:500px; overflow-y:auto;}
-pre { white-space:pre-wrap; }
-.footer { text-align:center; margin-top:40px; color:#7f8c8d; font-size:0.9rem; padding:20px; border-top:1px solid #eee;}
-@media (max-width:768px){ .button-group{ flex-direction:column;} button{width:100%;} .segment-btn{flex:1 0 40%;} }
+body { background:#f0f2f5; color:#333; line-height:1.6; padding:20px; min-height:100vh;}
+.container { max-width:900px; margin:0 auto; background:white; border-radius:10px; box-shadow:0 5px 20px rgba(0,0,0,0.1); padding:20px;}
+header { text-align:center; margin-bottom:20px;}
+h1 { font-size:2rem; color:#4a76a8; }
+textarea { width:100%; min-height:120px; padding:10px; margin-bottom:10px; border-radius:5px; border:1px solid #ccc; font-family: monospace;}
+button { padding:10px 15px; margin:5px 0; border:none; border-radius:5px; background:#4a76a8; color:white; cursor:pointer;}
+button:hover { background:#3b5a80; }
+.output { background:#222; color:#fff; padding:15px; border-radius:5px; font-family: monospace; max-height:400px; overflow:auto;}
+.nav-links { display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap;}
+.nav-links a, .nav-links button { text-decoration:none; color:white; background:#4a76a8; padding:8px 12px; border-radius:5px; }
+.nav-links a:hover, .nav-links button:hover { background:#3b5a80; }
 </style>
 </head>
 <body>
-
 <div class="container">
 <header>
 <h1>SNIP配置生成器</h1>
-<p class="description">一键生成Clash配置文件，支持入口节点和HTTPS节点链式配置</p>
 </header>
 
-<!-- 导航链接 -->
 <div class="nav-links">
     <button onclick="showPage('home')">首页</button>
     <button onclick="showPage('snipNode')">snip节点</button>
@@ -58,62 +34,36 @@ pre { white-space:pre-wrap; }
     <a href="https://sub.ikar.eu.org" target="_blank">soyo订阅转换</a>
 </div>
 
-<!-- 首页内容 -->
+<!-- 首页 -->
 <div id="home">
-<div class="main-content">
-    <div class="config-section">
-        <h2>配置文件开头</h2>
-        <p class="section-desc">设置Clash配置文件的基本参数，如果留空将使用默认配置</p>
-        <textarea id="configHeader">port: 7890
+    <label>配置文件开头:</label>
+    <textarea id="configHeader">port: 7890
 socks-port: 7891
 allow-lan: true
 mode: Rule
 log-level: debug
 external-controller: 127.0.0.1:9090
 proxies:</textarea>
-    </div>
-    <div class="config-section">
-        <div class="input-header">
-            <h2>入口节点配置</h2>
-            <button class="add-btn" id="addEntryNode">+ 添加输入框</button>
-        </div>
-        <p class="section-desc">添加入口节点配置（SS/VLESS/VMESS/Trojan），每输入框一个节点</p>
-        <div id="entryNodesContainer">
-            <div class="input-group">
-                <button class="remove-btn" onclick="removeInput(this)">×</button>
-                <textarea class="entry-node" placeholder="请输入入口节点配置"></textarea>
-            </div>
-        </div>
-    </div>
-    <div class="config-section">
-        <div class="input-header">
-            <h2>HTTPS节点配置</h2>
-            <button class="add-btn" id="addHttpsNode">+ 添加输入框</button>
-        </div>
-        <p class="section-desc">添加HTTPS节点配置，每行一个节点，与入口节点一一对应生成链式配置</p>
-        <div id="httpsNodesContainer">
-            <div class="input-group">
-                <button class="remove-btn" onclick="removeInput(this)">×</button>
-                <textarea class="https-node" placeholder="请输入HTTPS节点，每行一个"></textarea>
-            </div>
-        </div>
-    </div>
 
-    <div class="button-group">
-        <button id="generateConfig">生成配置</button>
-        <button id="copyConfig" class="copy-btn">一键复制</button>
+    <label>入口节点配置 (每行一个节点，多行可批量输入):</label>
+    <div id="entryNodesContainer">
+        <textarea class="entry-node" placeholder="请输入入口节点配置"></textarea>
     </div>
+    <button id="addEntryNode">+ 添加入口节点输入框</button>
 
-    <div id="segmentButtons" class="copy-buttons"></div>
-
-    <h2>生成结果：</h2>
-    <div class="output">
-        <pre id="output">生成结果将显示在这里...</pre>
+    <label>HTTPS节点配置 (每行一个节点，多行可批量输入，对应上面入口节点输入框):</label>
+    <div id="httpsNodesContainer">
+        <textarea class="https-node" placeholder="请输入HTTPS节点，每行一个"></textarea>
     </div>
-</div>
+    <button id="addHttpsNode">+ 添加HTTPS节点输入框</button>
+
+    <button id="generateConfig">生成配置</button>
+    <button id="copyConfig">一键复制</button>
+
+    <div class="output"><pre id="output">生成结果将显示在这里...</pre></div>
 </div>
 
-<!-- snip节点内容 -->
+<!-- snip节点页面 -->
 <div id="snipNode" style="display:none;">
 <h2>VLESS 批量转换为 Clash 配置</h2>
 <label>输入多个 VLESS 链接（每行一个或 Base64 编码）:</label>
@@ -124,43 +74,51 @@ proxies:</textarea>
 <textarea id="outputNode" readonly></textarea>
 </div>
 
-<div class="footer">
-<p>© 2023 SNIP配置生成器 | 一键生成Clash代理配置</p>
-</div>
-</div>
-
 <script>
-/* ---------- 原 JS 逻辑 ---------- */
-
-// 页面切换
 function showPage(pageId){
     document.getElementById('home').style.display = pageId==='home' ? 'block' : 'none';
     document.getElementById('snipNode').style.display = pageId==='snipNode' ? 'block' : 'none';
 }
-showPage('home'); // 初始化显示首页
+showPage('home');
 
-// 国家代码映射
+document.getElementById('addEntryNode').addEventListener('click',function(){
+    const container=document.getElementById('entryNodesContainer');
+    const newInput=document.createElement('textarea');
+    newInput.className='entry-node';
+    newInput.placeholder='请输入入口节点配置';
+    container.appendChild(newInput);
+});
+
+document.getElementById('addHttpsNode').addEventListener('click',function(){
+    const container=document.getElementById('httpsNodesContainer');
+    const newInput=document.createElement('textarea');
+    newInput.className='https-node';
+    newInput.placeholder='请输入HTTPS节点，每行一个';
+    container.appendChild(newInput);
+});
+
 const countryCodeMap = {US:'美国',HK:'香港',JP:'日本',TW:'台湾',SG:'新加坡',KR:'韩国',UK:'英国',DE:'德国',FR:'法国',CA:'加拿大',AU:'澳大利亚',RU:'俄罗斯',IN:'印度',BR:'巴西',MX:'墨西哥'};
 
-// 移除输入框
-function removeInput(btn){ const inputGroup = btn.parentElement; if(inputGroup.parentElement.children.length>1){ inputGroup.remove(); } else{ alert('至少需要保留一个输入框！'); }}
+function extractNameFromHttps(url){
+    try{
+        const hashIndex=url.indexOf('#');
+        if(hashIndex===-1) return 'HTTPS节点';
+        const hash=url.substring(hashIndex+1);
+        for(const [code,name] of Object.entries(countryCodeMap)){
+            if(hash.includes(`[${code}]`)||hash.includes(`_${code}_`)) return name;
+        }
+        if(hash.includes('中国_')){
+            const parts=hash.split('_'); return parts[1]||'中国';
+        }
+        const parts=hash.split('_'); return parts[0]||'HTTPS节点';
+    } catch{return 'HTTPS节点'; }
+}
 
-// 添加入口节点
-document.getElementById('addEntryNode').addEventListener('click',function(){ const container=document.getElementById('entryNodesContainer'); const newInput=document.createElement('div'); newInput.className='input-group'; newInput.innerHTML=`<button class="remove-btn" onclick="removeInput(this)">×</button><textarea class="entry-node" placeholder="请输入入口节点配置"></textarea>`; container.appendChild(newInput);});
+function cleanEntryNodeConfig(nodeConfig){
+    return nodeConfig.replace(/^(\s*-\s*)/,'');
+}
 
-// 添加HTTPS节点
-document.getElementById('addHttpsNode').addEventListener('click',function(){ const container=document.getElementById('httpsNodesContainer'); const newInput=document.createElement('div'); newInput.className='input-group'; newInput.innerHTML=`<button class="remove-btn" onclick="removeInput(this)">×</button><textarea class="https-node" placeholder="请输入HTTPS节点，每行一个"></textarea>`; container.appendChild(newInput);});
-
-// 提取HTTPS节点名
-function extractNameFromHttps(url){ try{ const hashIndex=url.indexOf('#'); if(hashIndex===-1) return 'HTTPS节点'; const hash=url.substring(hashIndex+1); for(const [code,name] of Object.entries(countryCodeMap)){ if(hash.includes(`[${code}]`)||hash.includes(`_${code}_`)) return name; } if(hash.includes('中国_')){ const parts=hash.split('_'); return parts[1]||'中国'; } const parts=hash.split('_'); return parts[0]||'HTTPS节点'; } catch{return 'HTTPS节点'; }}
-
-// 修改入口节点名称
-function modifyEntryNodeName(nodeConfig,index){ const nameRegex=/name:\s*["']?([^"',}]+)["']?/; const newName=`name: "snip${index+1}"`; if(nameRegex.test(nodeConfig)) return nodeConfig.replace(nameRegex,newName); const firstBraceIndex=nodeConfig.indexOf('{'); if(firstBraceIndex!==-1) return nodeConfig.substring(0,firstBraceIndex+1)+`name: "snip${index+1}", `+nodeConfig.substring(firstBraceIndex+1); return nodeConfig;}
-
-// 清理入口节点配置
-function cleanEntryNodeConfig(nodeConfig){ if(nodeConfig.startsWith('  - ')) return nodeConfig.substring(4); if(nodeConfig.startsWith('- ')) return nodeConfig.substring(2); return nodeConfig;}
-
-// 生成配置
+// 生成配置逻辑优化，HTTPS全局序号
 document.getElementById('generateConfig').addEventListener('click',function(){
     let configHeader=document.getElementById('configHeader').value.trim();
     if(!configHeader) configHeader=`port: 7890
@@ -171,49 +129,55 @@ log-level: debug
 external-controller: 127.0.0.1:9090
 proxies:`;
 
-    const entryNodes=Array.from(document.getElementsByClassName('entry-node')).map(t=>t.value.trim()).filter(Boolean);
-    const httpsNodes=Array.from(document.getElementsByClassName('https-node')).map(t=>t.value.trim()).filter(Boolean);
-    if(entryNodes.length===0 && httpsNodes.length===0){ alert('请至少输入一个节点配置！'); return; }
+    const entryNodesArray=Array.from(document.getElementsByClassName('entry-node')).map(t=>t.value.trim()).filter(Boolean);
+    const httpsNodesArray=Array.from(document.getElementsByClassName('https-node')).map(t=>t.value.trim()).filter(Boolean);
+
+    if(entryNodesArray.length===0 && httpsNodesArray.length===0){ alert('请至少输入一个节点配置！'); return; }
 
     let config=configHeader+'\n';
 
-    entryNodes.forEach((node,index)=>{
-        const cleanedNode=cleanEntryNodeConfig(node);
-        const modifiedNode=modifyEntryNodeName(cleanedNode,index);
-        config+='  - '+modifiedNode+'\n';
+    // 添加入口节点
+    entryNodesArray.forEach(enText=>{
+        const lines=enText.split('\n').filter(Boolean);
+        lines.forEach(l=>{ config+='  - '+cleanEntryNodeConfig(l)+'\n'; });
     });
 
-    let httpsIndex=0;
-    httpsNodes.forEach((httpsText,entryIndex)=>{
-        const httpsLines=httpsText.split('\n').filter(line=>line.trim());
-        httpsLines.forEach((https)=>{
-            try{
-                let server,port;
-                if(https.includes('://')){
-                    const url=new URL(https);
-                    server=url.hostname;
-                    port=url.port||443;
-                } else{
-                    const parts=https.split(':');
-                    server=parts[0];
-                    port=parts[1]||443;
-                }
-                const name=extractNameFromHttps(https);
-                config+=`  - name: "${name}-${httpsIndex+1}"\n`;
-                config+=`    type: http\n`;
-                config+=`    server: ${server}\n`;
-                config+=`    port: ${port}\n`;
-                config+=`    tls: true\n`;
-                config+=`    skip-cert-verify: true\n`;
-                if(entryNodes[entryIndex]) config+=`    dialer-proxy: "snip${entryIndex+1}"\n`;
-                config+='\n';
-                httpsIndex++;
-            } catch(e){ console.error('无效的HTTPS URL:',https,e); }
+    // HTTPS节点对应入口节点组合生成，序号全局累加
+    let globalIndex = 1;
+    httpsNodesArray.forEach((httpsText,index)=>{
+        const httpsLines=httpsText.split('\n').filter(Boolean);
+        const entryLines=(entryNodesArray[index]||'').split('\n').filter(Boolean);
+        if(entryLines.length===0) return; // 没有对应入口节点则跳过
+        httpsLines.forEach(httpsLine=>{
+            entryLines.forEach(entryLine=>{
+                try{
+                    let server,port;
+                    if(httpsLine.includes('://')){
+                        const url=new URL(httpsLine);
+                        server=url.hostname;
+                        port=url.port||443;
+                    } else{
+                        const parts=httpsLine.split(':');
+                        server=parts[0];
+                        port=parts[1]||443;
+                    }
+                    const name=extractNameFromHttps(httpsLine)+'-'+globalIndex;
+                    globalIndex++;
+                    const dialerProxyMatch=entryLine.match(/name:\s*["']?([^'",}]+)["']?/);
+                    const dialerProxy=dialerProxyMatch ? dialerProxyMatch[1] : 'snip';
+                    config+=`  - name: "${name}"\n`;
+                    config+=`    type: http\n`;
+                    config+=`    server: ${server}\n`;
+                    config+=`    port: ${port}\n`;
+                    config+=`    tls: true\n`;
+                    config+=`    skip-cert-verify: true\n`;
+                    config+=`    dialer-proxy: "${dialerProxy}"\n\n`;
+                } catch(e){ console.error('无效的HTTPS URL:',httpsLine,e); }
+            });
         });
     });
 
     document.getElementById('output').textContent=config;
-    generateSegmentButtons(config);
 });
 
 // 一键复制
@@ -223,32 +187,11 @@ document.getElementById('copyConfig').addEventListener('click',function(){
     navigator.clipboard.writeText(output.textContent).then(()=>alert('配置已复制到剪贴板！')).catch(err=>console.error('复制失败:',err));
 });
 
-// 分段复制按钮
-function generateSegmentButtons(config){
-    const segmentButtons=document.getElementById('segmentButtons');
-    segmentButtons.innerHTML='';
-    const lines=config.split('\n');
-    const segmentSize=50;
-    let segmentIndex=0;
-    for(let i=0;i<lines.length;i+=segmentSize){
-        const segment=lines.slice(i,i+segmentSize).join('\n');
-        const button=document.createElement('button');
-        button.className='segment-btn';
-        button.textContent=`复制第${segmentIndex+1}段`;
-        button.addEventListener('click',()=>navigator.clipboard.writeText(segment).then(()=>alert(`第${segmentIndex+1}段已复制！`)));
-        segmentButtons.appendChild(button);
-        segmentIndex++;
-    }
-}
-
-/* ---------- snip节点转换JS ---------- */
+// ---------- snip节点页面不变 ----------
 function tryDecodeBase64(text){
-    try{
-        if(/^[A-Za-z0-9+/=\s]+$/.test(text)) return atob(text.replace(/\s+/g,''));
-    } catch(e){ console.warn('Base64 解码失败',e); }
+    try{ if(/^[A-Za-z0-9+/=\s]+$/.test(text)) return atob(text.replace(/\s+/g,'')); } catch(e){ console.warn('Base64 解码失败',e); }
     return text;
 }
-
 function convert(){
     let input=document.getElementById('input').value.trim();
     if(!input) return alert('请输入至少一个 VLESS 链接或 Base64 字符串');
@@ -277,13 +220,10 @@ function convert(){
             let path=decodeURIComponent(urlParams.get('path')||'/');
             if(!path.startsWith('/')) path='/'+path;
             result.push(`  - {name: ${name}, server: ${server}, port: ${port}, type: vless, uuid: ${uuid}, tls: ${tls}, tfo: false, skip-cert-verify: true, servername: ${sni}, client-fingerprint: ${fp}, network: ${network}, ws-opts: {path: "${path}", headers: {Host: ${host}}}}`);
-        } catch(e){
-            result.push(`# 第 ${idx+1} 行解析失败：${line}`);
-        }
+        } catch(e){ result.push(`# 第 ${idx+1} 行解析失败：${line}`); }
     });
     document.getElementById('outputNode').value=result.join('\n');
 }
-
 function copyOutput(){
     const output=document.getElementById('outputNode');
     if(!output.value) return alert('没有内容可复制');
